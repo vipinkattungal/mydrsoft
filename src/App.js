@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route, Redirect } from 'react-router-d
 import Login from './login'
 import DashboardCard from './component/dsbrd'
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <div className="App">
         {isLoggedIn ?  <Router>
