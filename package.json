@@ -22,6 +22,7 @@
     "material-ui-dropzone": "^3.5.0",
     "mdb-react-ui-kit": "^6.0.0",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
     "react-calendar": "^4.2.1",
     "react-canvas-gauges": "^1.2.1",
     "react-dom": "^18.2.0",
