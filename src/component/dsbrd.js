@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
+// import CalendarUI from'./Dashbord/calender'
 const data = [
   { name: 'A', value: 10 },
   { name: 'B', value: 20 },
@@ -18,8 +18,7 @@ const DashboardCard= () => {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Card 1</Typography>
-              <Typography variant="subtitle1">Value 1</Typography>
+              {/* <CalendarUI/> */}
             </CardContent>
           </Card>
         </Grid>

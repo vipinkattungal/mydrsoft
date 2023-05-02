@@ -19,6 +19,7 @@ const AddPatientForm = () => {
   const [reasonForVisit, setReasonForVisit] = useState("");
 
   const handleSubmit = (e) => {
+    localStorage.setItem("login", "login")
     e.preventDefault();
     console.log({
       firstName,
@@ -38,14 +39,14 @@ const AddPatientForm = () => {
         flexDirection: "column",
         alignItems: "cebter",
         justifyContent: "center",
-        height: "100vh",
+        height: "85vh",
         
         
       }}
     >
       <Paper  sx={{ p: 4, borderRadius: 3, boxShadow: 8, width: "100%" }}>
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: "flex", gap: 2 }}>
+          <Box sx={{ display: "flex", gap: 2, mt:2  }}>
             <TextField
               required
               label="First Name"
@@ -107,7 +108,7 @@ const AddPatientForm = () => {
             value={reasonForVisit}
             onChange={(e) => setReasonForVisit(e.target.value)}
           />
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mt:4 }}>
             <Button variant="contained" color="primary" type="submit">
               Add Patient
             </Button>

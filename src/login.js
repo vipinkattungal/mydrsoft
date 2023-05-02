@@ -25,10 +25,11 @@ export default function Login({setIsLoggedIn}) {
     const [password, setPassword] = useState("");
   const Navigate =useNavigate();
     const handleLogin = (e) => {
+      localStorage.setItem("login", false)
       e.preventDefault();
       // TODO: Implement your login logic here
-      setIsLoggedIn(true);
-      Navigate('/addpt')
+     // setIsLoggedIn(true);
+     // Navigate('/addpt')
     };
   const handleSubmit = (event) => {
     event.preventDefault();
