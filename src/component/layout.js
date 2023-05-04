@@ -177,17 +177,8 @@ const shadow = useColorModeValue(
           >
             <MenuIcon />
           </IconButton>
-          <Box
-        component="img"
-        sx={{
-          height: 75,
-          width: 150,
-         
-        }}
-        alt="The house from the offer."
-        src={logo}
-      />
-      <Box >
+          
+      <Box  ml="90%">
       <Menu >
 				<MenuButton p="0px" >
 					<Icon  mt="6px" as={MdNotificationsNone} color="#2c387e" w="18px" h="18px" me="10px" />
