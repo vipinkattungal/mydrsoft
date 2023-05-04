@@ -7,7 +7,7 @@ const Card = ({ title, percentage, backgroundColor }) => {
     boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
     padding: '10px',
     textAlign: 'center',
-    width: '230px',
+    width: '240px',
   };
 
   const percentageStyle = {
@@ -28,7 +28,7 @@ const CardRow = (props) => {
   const rowStyle = {
     display: 'flex',
     justifyContent: 'center',
-    gap: '20px',
+    gap: '10px',
     flexWrap: 'wrap',
     margin: '0 auto',
     maxWidth: '1000px',

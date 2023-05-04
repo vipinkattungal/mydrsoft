@@ -42,32 +42,38 @@ const Dashboard = () => {
   return (
     <div className={classes.root}>
          
-         <Cards  name1="BP"  name2="BP"  name3="BP"  name4="BP" value="108/120"/>
-<br/>
+         {/* <Cards  name1="BP"  name2="BP"  name3="BP"  name4="BP" value="108/120"/> */}
+{/* <br/> */}
 
       <Grid item xs container spacing={3}>
-        <Grid item xs={6} md={4}>
+      <Grid xs={12} sm={6} md={12}>
+        <Paper className={classes.paper}>
+
+         <Cards  name1="Total Patient"  name2="Todat Visit"  name3="Earnings"  name4="Total Visits" value="108/120"/>
+         </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
         <Paper className={classes.paper}>
 
             <Calendar />
             </Paper>
         </Grid>
-        <Grid item xs={6} md={8}>
+        <Grid item xs={12}  sm={6} md={8}>
           <Paper className={classes.paper}>
             <LineChart />
           </Paper>
         </Grid>
-        <Grid item xs={6} md={6} lg={4}>
+        <Grid item xs={12} sm={6} md={6} >
           <Paper className={classes.paper}>
             <PatientTable />
           </Paper>
         </Grid>
-        <Grid item xs={6} md={6} lg={4}>
+        <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
             <Note />
           </Paper>
         </Grid>
-        <Grid item xs={6} md={12} lg={4}>
+        <Grid item xs={12} sm={6} md={12}>
           <Paper className={classes.paper}>
           <Barchart
           chartData={barChartDataDailyTraffic}
