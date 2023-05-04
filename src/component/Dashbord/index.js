@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
- import Calendar from "./Calender";
+import Calendar from "./Calender";
 import LineChart from "./components/LineChart";
 import PatientTable from "./components/PatientTable";
 import Note from "./components/Note";
@@ -41,24 +41,19 @@ const Dashboard = () => {
 
   return (
     <div className={classes.root}>
-         
-         {/* <Cards  name1="BP"  name2="BP"  name3="BP"  name4="BP" value="108/120"/> */}
-{/* <br/> */}
-
+      a
       <Grid item xs container spacing={3}>
-      <Grid xs={12} sm={6} md={12}>
-        <Paper className={classes.paper}>
+        <Grid xs={12} sm={6} md={12}>
 
-         <Cards  name1="Total Patient"  name2="Todat Visit"  name3="Earnings"  name4="Total Visits" value="108/120"/>
-         </Paper>
+          <Cards name1="Total Patient" name2="Todat Visit" name3="Earnings" name4="Total Visits" value="108/120" />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-        <Paper className={classes.paper}>
+          <Paper className={classes.paper}>
 
             <Calendar />
-            </Paper>
+          </Paper>
         </Grid>
-        <Grid item xs={12}  sm={6} md={8}>
+        <Grid item xs={12} sm={6} md={8}>
           <Paper className={classes.paper}>
             <LineChart />
           </Paper>
@@ -75,10 +70,10 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={12}>
           <Paper className={classes.paper}>
-          <Barchart
-          chartData={barChartDataDailyTraffic}
-          chartOptions={barChartOptionsDailyTraffic}
-        />          </Paper>
+            <Barchart
+              chartData={barChartDataDailyTraffic}
+              chartOptions={barChartOptionsDailyTraffic}
+            />          </Paper>
         </Grid>
       </Grid>
     </div>
