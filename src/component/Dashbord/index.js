@@ -41,11 +41,12 @@ const Dashboard = () => {
 
   return (
     <div className={classes.root}>
-      a
+      
       <Grid item xs container spacing={3}>
         <Grid xs={12} sm={6} md={12}>
 
           <Cards name1="Total Patient" name2="Todat Visit" name3="Earnings" name4="Total Visits" value="108/120" />
+        <br/>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Paper className={classes.paper}>

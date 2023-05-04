@@ -37,6 +37,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import Addpt from './addPatient';
 import EnhancedTable from './viewPatient'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
+
 import Form from './patientDetailsForm'
 import VerticalTimeline from './TimeLine'
 import logo from'../image/logo1.png'
@@ -126,6 +128,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+
   let menuBg = useColorModeValue('white', 'navy.800');
 const textColor = useColorModeValue('secondaryGray.900', 'white');
 const textColorBrand = useColorModeValue('brand.700', 'brand.400');
@@ -139,6 +142,7 @@ const shadow = useColorModeValue(
 );
 
   const theme = useTheme();
+
   const [open, setOpen] = React.useState(false);
   const [activeComponent, setActiveComponent] = useState('home');
 
@@ -149,16 +153,22 @@ const shadow = useColorModeValue(
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const handleItemClick = (componentName) => {
-    alert("ggg");
 
+  const handleItemClick = (componentName) => {
+  // const navigate = useNavigate();
+
+if(componentName === 'Dashbord'){
+  
+  //navigate('/Dashbord');
+
+}
     console.log(componentName);
     setActiveComponent(componentName);
     setOpen(false);
   };
 
 
-  const array=['home','viewpt'];
+  const array=['Dashbord','Addpt','viewpt','patientdetails','patientDashbord'];
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -223,7 +233,7 @@ const shadow = useColorModeValue(
         </DrawerHeader>
         <Divider />
         <List >
-          {['Add Patient', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Dashbord','Add Patient', 'View Patient', 'PatientDetils', 'Patient Dashbord'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
             
               <ListItemButton
@@ -249,7 +259,7 @@ const shadow = useColorModeValue(
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Appointment', 'Patient Vitals', 'Settings'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
