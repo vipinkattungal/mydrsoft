@@ -17,6 +17,19 @@ export default function App() {
   //  localStorage.getItem("login") && setIsLoggedIn(false)
 
   }, [localStorage.getItem("login")])
+  const handleItemClick = (componentName) => {
+    // const navigate = useNavigate();
+  
+  // if(componentName === 'Dashbord'){
+  //   return           <Link to="/"></Link>
+  
+  
+  // }
+      // console.log(componentName);
+      // setActiveComponent(componentName);
+      // setOpen(false);
+    };
+  
   return (
     <div className="App">
     {  isLoggedIn ?  (<Router>
@@ -26,7 +39,11 @@ export default function App() {
 
 
         </Routes>
-      </Router>):<Navbar/>
+      </Router>):
+      <>
+      <Navbar/>
+      </>
+
 }
     </div>
 

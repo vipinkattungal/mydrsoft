@@ -1,4 +1,4 @@
-import  React, {useState} from 'react';
+import  React, {useEffect, useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -11,14 +11,15 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
-
+import { BrowserRouter as Router, Routes, Route, Redirect, Link } from 'react-router-dom';
+import { alpha } from '@material-ui/core/styles';
+import Rt from './rt';
 import {
 	Avatar,
 	Button,
 	Flex,
 	Icon,
 	Image,
-	Link,
 	Menu,
 	MenuButton,
 	MenuItem,
@@ -36,7 +37,6 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Addpt from './addPatient';
 import EnhancedTable from './viewPatient'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation} from 'react-router-dom';
 
 import Form from './patientDetailsForm'
@@ -128,7 +128,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
-
+// const Location = useNavigate();
   let menuBg = useColorModeValue('white', 'navy.800');
 const textColor = useColorModeValue('secondaryGray.900', 'white');
 const textColorBrand = useColorModeValue('brand.700', 'brand.400');
@@ -145,6 +145,8 @@ const shadow = useColorModeValue(
 
   const [open, setOpen] = React.useState(false);
   const [activeComponent, setActiveComponent] = useState('home');
+  const [selectedItem, setSelectedItem] = useState("");
+  const [showComponent, setShowComponent] = useState("");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -153,25 +155,21 @@ const shadow = useColorModeValue(
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const handleClick = (e) => {
+    setSelectedItem("viewItem")
+    setShowComponent(e)
 
-  const handleItemClick = (componentName) => {
-  // const navigate = useNavigate();
+  } 
 
-if(componentName === 'Dashbord'){
-  
-  //navigate('/Dashbord');
+// useEffect(()=>{
+//  setShowComponent(true);
 
-}
-    console.log(componentName);
-    setActiveComponent(componentName);
-    setOpen(false);
-  };
-
+// }, [showComponent])
 
   const array=['Dashbord','Addpt','viewpt','patientdetails','patientDashbord'];
 
   return (
-    <Box sx={{ display: 'flex'}}>
+<Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{backgroundColor:'#2c387e', }} >
         <Toolbar>
@@ -232,31 +230,52 @@ if(componentName === 'Dashbord'){
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List >
-          {['Dashbord','Add Patient', 'View Patient', 'PatientDetils', 'Patient Dashbord'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                onClick={() => handleItemClick(array[index])}              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <Router>
+
+        <List>
+          
+              <Link to="/" onClick={handleClick}>
+                <ListItem button  key="Dashbord1">
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashbord" />
+                </ListItem>
+              </Link>
+              <Link to="/addpt"  onClick={()=>handleClick("addPt")}>
+                <ListItem button key="addpt">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add patient" />
+                </ListItem>
+              </Link>
+              <Link to="/viewpt" onClick={()=>handleClick("viewPt")}>
+                <ListItem button key="viewpt">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="View Patient" />
+                </ListItem>
+              </Link>
+              <Link to="/patientDetails" onClick={handleClick}>
+                <ListItem button key="patientDetails">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Patient Details" />
+                </ListItem>
+              </Link>
+                <Link to="/patientDashbord" onClick={handleClick}>
+                <ListItem button key="patientDashbord">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="patientDashbord" />
+                </ListItem>
+              </Link>
+            </List>    </Router>
+
         <Divider />
         <List>
           {['Appointment', 'Patient Vitals', 'Settings'].map((text, index) => (
@@ -285,18 +304,8 @@ if(componentName === 'Dashbord'){
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }} >
         <DrawerHeader />
-        <Router>
-        <Routes>
-             <Route path="/viewpt" element={< EnhancedTable/>}/>
-          <Route path="/Addpt" element={<AddPatientForm />} />
-          <Route path="/PatientDetails" element={<Form />} />
-          <Route path="/Timeline" element={<VerticalTimeline />} />
-          <Route path="/Dashbord" element={<Dashboard />} />
-          <Route path="/patientDashbord" element={<PatientDashboard />} />
-
-          </Routes>
-            </Router>
-      </Box>
+       <Rt/> 
+      </Box> 
     </Box>
   );
 }
