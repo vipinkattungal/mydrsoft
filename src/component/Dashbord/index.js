@@ -7,6 +7,9 @@ import PatientTable from "./components/PatientTable";
 import Note from "./components/Note";
 import PieChart from "./components/PieChart"
 import Cards from "./card"
+import AppointmentTable from './components/appointmentTable' 
+import UpcomingAppointments from './components/upcomingAppt' 
+
 import {
   barChartDataDailyTraffic,
   barChartOptionsDailyTraffic,
@@ -38,7 +41,13 @@ const Dashboard = () => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
+  const appointments = [
+    { name: 'Appointment 1', time: '9:00 AM' },
+    { name: 'Appointment 2', time: '10:30 AM' },
+    { name: 'Appointment 3', time: '1:00 PM' },
+  ];
+  
+  
   return (
     <div className={classes.root}>
       
@@ -67,6 +76,16 @@ const Dashboard = () => {
         <Grid item xs={6} sm={6} md={6}>
           <Paper className={classes.paper}>
             <Note />
+          </Paper>
+        </Grid>
+        <Grid item xs={6} sm={6} md={6}>
+          <Paper className={classes.paper}>
+            <AppointmentTable />
+          </Paper>
+        </Grid>
+        <Grid item xs={6} sm={6} md={6}>
+          <Paper className={classes.paper}>
+          <UpcomingAppointments appointments={appointments} />
           </Paper>
         </Grid>
         <Grid item xs={6} sm={6} md={12}>

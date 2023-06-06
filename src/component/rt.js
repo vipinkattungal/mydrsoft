@@ -11,6 +11,9 @@ import VerticalTimeline from './TimeLine'
 import AddPatientForm from './addPtnew'
 import Dashboard from './Dashbord/index'
 import PatientDashboard from './Dashbord/patientDashbord'
+import AppointmentTable from'./Dashbord/components/appointmentTable'
+import InvoiceGenerator from'./Dashbord/components/invoice'
+
 export default function Rt() {
     return (
         <Router >
@@ -21,6 +24,9 @@ export default function Rt() {
                 <Route  path="/Timeline" element={<VerticalTimeline />} />
                 <Route  path="/" element={<Dashboard />} />
                 <Route  path="/patientDashbord" element={<PatientDashboard />} />
+                <Route  path="/appointment" element={<AppointmentTable />} />
+                <Route  path="/invoice" element={<InvoiceGenerator />} />
+
             </Routes>
         </Router>
     )

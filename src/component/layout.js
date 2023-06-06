@@ -274,7 +274,24 @@ const shadow = useColorModeValue(
                   <ListItemText primary="patientDashbord" />
                 </ListItem>
               </Link>
-            </List>    </Router>
+              <Link to="/appointment" onClick={handleClick}>
+                <ListItem button key="appointment">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="appointment" />
+                </ListItem>
+              </Link>
+              <Link to="/invoice" onClick={handleClick}>
+                <ListItem button key="invoice">
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="invoice" />
+                </ListItem>
+              </Link>
+            </List>   
+             </Router>
 
         <Divider />
         <List>
