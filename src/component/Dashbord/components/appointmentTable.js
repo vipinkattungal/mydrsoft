@@ -22,9 +22,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     padding: theme.spacing(2, 4, 3),
+  },
+  formField: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(1),
   },
 }));
 
@@ -66,7 +76,8 @@ const AppointmentTable = () => {
   };
 
   const handleAddAppointment = () => {
-    setAppointments([...appointments, newAppointment]);
+    const updatedAppointments = [...appointments, newAppointment];
+    setAppointments(updatedAppointments);
     setNewAppointment({
       patientName: '',
       phone: '',
@@ -87,8 +98,6 @@ const AppointmentTable = () => {
 
   return (
     <div>
-
-    
       <Button variant="contained" onClick={handleOpen}>
         Add Appointment
       </Button>
@@ -135,7 +144,6 @@ const AppointmentTable = () => {
         <div className={classes.modalContent}>
           <h2>Add Appointment</h2>
           <FormControlLabel
-          
             control={
               <Switch
                 checked={newAppointment.isNewCustomer}
@@ -146,69 +154,89 @@ const AppointmentTable = () => {
           />
           {!newAppointment.isNewCustomer ? (
             <>
-              <TextField
-                label="Patient Name"
-                name="patientName"
-                value={newAppointment.patientName}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Phone"
-                name="phone"
-                value={newAppointment.phone}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Time"
-                name="time"
-                value={newAppointment.time}
-                onChange={handleInputChange}
-              />
+              <div className={classes.formField}>
+                <TextField
+                  label="Patient Name"
+                  name="patientName"
+                  value={newAppointment.patientName}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  value={newAppointment.phone}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Time"
+                  name="time"
+                  value={newAppointment.time}
+                  onChange={handleInputChange}
+                />
+              </div>
             </>
           ) : (
             <>
-              <TextField
-                label="Patient Name"
-                name="patientName"
-                value={newAppointment.patientName}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Phone"
-                name="phone"
-                value={newAppointment.phone}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Age"
-                name="age"
-                value={newAppointment.age}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Date"
-                name="date"
-                value={newAppointment.date}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Time"
-                name="time"
-                value={newAppointment.time}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Reason of Visit"
-                name="reason"
-                value={newAppointment.reason}
-                onChange={handleInputChange}
-              />
-              <TextField
-                label="Status"
-                name="status"
-                value={newAppointment.status}
-                onChange={handleInputChange}
-              />
+              <div className={classes.formField}>
+                <TextField
+                  label="Patient Name"
+                  name="patientName"
+                  value={newAppointment.patientName}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  value={newAppointment.phone}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Age"
+                  name="age"
+                  value={newAppointment.age}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Date"
+                  name="date"
+                  value={newAppointment.date}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Time"
+                  name="time"
+                  value={newAppointment.time}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Reason of Visit"
+                  name="reason"
+                  value={newAppointment.reason}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className={classes.formField}>
+                <TextField
+                  label="Status"
+                  name="status"
+                  value={newAppointment.status}
+                  onChange={handleInputChange}
+                />
+              </div>
             </>
           )}
           <Button variant="contained" onClick={handleAddAppointment}>

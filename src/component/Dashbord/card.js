@@ -19,7 +19,7 @@ const Card = ({ title, percentage, backgroundColor }) => {
   return (
     <div style={cardStyle}>
       <h5><strong>{title}</strong></h5>
-      <div style={percentageStyle}>{percentage}%</div>
+      <div style={percentageStyle}>{percentage}</div>
     </div>
   );
 };
