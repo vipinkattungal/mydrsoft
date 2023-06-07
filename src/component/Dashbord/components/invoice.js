@@ -1,167 +1,174 @@
 import React, { useState } from 'react';
 import {
+  Card,
+  CardContent,
+  Typography,
   TextField,
   Button,
-  Modal,
-  Typography,
-  Box,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
+  Modal,
 } from '@mui/material';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    maxWidth: 400,
+    margin: '0 auto',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  formControl: {
+    minWidth: 200,
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    padding: theme.spacing(4),
+    maxWidth: 600,
+    width: '100%',
+    border: '1px solid #ccc',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+  },
+  modalHeader: {
+    marginBottom: theme.spacing(2),
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  invoiceContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: theme.spacing(4),
+    marginBottom: theme.spacing(2),
+  },
+  section: {
+    marginBottom: theme.spacing(2),
+  },
+  label: {
+    fontWeight: 'bold',
+  },
+  value: {
+    marginLeft: theme.spacing(1),
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+}));
 
 const InvoiceGenerator = () => {
-  const [open, setOpen] = useState(false);
-  const [invoiceData, setInvoiceData] = useState({
-    patientId: '',
-    patientPhone: '',
-    type: '',
-    category: '',
-    amount: '',
-  });
+  const classes = useStyles();
+  const [patientId, setPatientId] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [type, setType] = useState('virtual');
+  const [category, setCategory] = useState('');
+  const [amount, setAmount] = useState('');
+  const [previewModalOpen, setPreviewModalOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handlePreviewModalOpen = () => {
+    setPreviewModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handlePreviewModalClose = () => {
+    setPreviewModalOpen(false);
   };
 
-  const handleInputChange = (e) => {
-    setInvoiceData({
-      ...invoiceData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handlePreview = () => {
-    handleOpen();
-  };
-
-  const handlePrint = () => {
-    // Logic to print the invoice
-  };
-
-  const handleSendToWhatsApp = () => {
-    // Logic to send the invoice to WhatsApp
+  const handleGenerateInvoice = () => {
+    // Logic to generate and save the invoice
+    console.log('Generating invoice...');
   };
 
   return (
-    <div>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-        }}
-      >
-        <Box>
-          <InputLabel sx={{ fontWeight: 'bold' }}>Patient ID</InputLabel>
-          <TextField
-            name="patientId"
-            value={invoiceData.patientId}
-            onChange={handleInputChange}
-            required
-          />
-        </Box>
-        <Box>
-          <InputLabel sx={{ fontWeight: 'bold' }}>Patient Phone</InputLabel>
-          <TextField
-            name="patientPhone"
-            value={invoiceData.patientPhone}
-            onChange={handleInputChange}
-            required
-          />
-        </Box>
-        <Box>
-          <InputLabel sx={{ fontWeight: 'bold' }}>Type</InputLabel>
-          <FormControl>
-            <Select
-              name="type"
-              value={invoiceData.type}
-              onChange={handleInputChange}
-              required
-            >
-              <MenuItem value="normal">Normal</MenuItem>
-              <MenuItem value="virtual">Virtual</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Box>
-          <InputLabel sx={{ fontWeight: 'bold' }}>Category</InputLabel>
-          <FormControl>
-            <Select
-              name="category"
-              value={invoiceData.category}
-              onChange={handleInputChange}
-              required
-            >
-              <MenuItem value="category1">Category 1</MenuItem>
-              <MenuItem value="category2">Category 2</MenuItem>
-              <MenuItem value="category3">Category 3</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Box>
-          <InputLabel sx={{ fontWeight: 'bold' }}>Amount</InputLabel>
-          <TextField
-            name="amount"
-            value={invoiceData.amount}
-            onChange={handleInputChange}
-            required
-          />
-        </Box>
-        <Button variant="contained" onClick={handlePreview}>
+    <Card className={classes.card}>
+      <CardContent className={classes.content}>
+        <Typography variant="h5" component="h2" gutterBottom>
+          Generate Invoice
+        </Typography>
+        <TextField
+          label="Patient ID"
+          value={patientId}
+          onChange={(e) => setPatientId(e.target.value)}
+        />
+        <TextField
+          label="Phone Number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <FormControl className={classes.formControl}>
+          <InputLabel>Type</InputLabel>
+          <Select value={type} onChange={(e) => setType(e.target.value)}>
+            <MenuItem value="virtual">Virtual</MenuItem>
+            <MenuItem value="normal">Normal</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          label="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        <TextField
+          label="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <Button variant="contained" onClick={handlePreviewModalOpen}>
           Preview
         </Button>
-      </Box>
-
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'white',
-            boxShadow: 24,
-            p: 2,
-            outline: 'none',
-            borderRadius: '8px',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="h6" sx={{ marginBottom: '16px' }}>
-            Invoice Preview
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '8px' }}>
-            <strong>Patient ID:</strong> {invoiceData.patientId}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '8px' }}>
-            <strong>Patient Phone:</strong> {invoiceData.patientPhone}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '8px' }}>
-            <strong>Type:</strong> {invoiceData.type}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '8px' }}>
-            <strong>Category:</strong> {invoiceData.category}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '16px' }}>
-            <strong>Amount:</strong> {invoiceData.amount}
-          </Typography>
-
-          <Button variant="contained" onClick={handlePrint} sx={{ marginRight: '8px' }}>
-            Print
-          </Button>
-          <Button variant="contained" onClick={handleSendToWhatsApp}>
-            Send to WhatsApp
-          </Button>
-        </Box>
-      </Modal>
-    </div>
+        <Modal open={previewModalOpen} onClose={handlePreviewModalClose} className={classes.modal}>
+          <div className={classes.modalContent}>
+            <Typography variant="h4" className={classes.modalHeader}>
+              Clinic Name
+            </Typography>
+            <div className={classes.invoiceContainer}>
+              <div className={classes.section}>
+                <Typography variant="body1" className={classes.label}>
+                  Patient ID:
+                  <span className={classes.value}>{patientId}</span>
+                </Typography>
+                <Typography variant="body1" className={classes.label}>
+                  Phone Number:
+                  <span className={classes.value}>{phoneNumber}</span>
+                </Typography>
+                <Typography variant="body1" className={classes.label}>
+                  Type:
+                  <span className={classes.value}>{type}</span>
+                </Typography>
+              </div>
+              <div className={classes.section}>
+                <Typography variant="body1" className={classes.label}>
+                  Category:
+                  <span className={classes.value}>{category}</span>
+                </Typography>
+                <Typography variant="body1" className={classes.label}>
+                  Amount:
+                  <span className={classes.value}>{amount}</span>
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.actions}>
+              <Button variant="contained" color="primary">
+                Print
+              </Button>
+              <Button variant="contained" color="primary">
+                Send to Patient
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      </CardContent>
+    </Card>
   );
 };
 
