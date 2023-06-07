@@ -248,4 +248,5 @@ const AppointmentTable = () => {
   );
 };
 
+
 export default AppointmentTable;
