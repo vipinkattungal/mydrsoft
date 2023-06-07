@@ -9,7 +9,7 @@ import PieChart from "./components/PieChart"
 import Cards from "./card"
 import AppointmentTable from './components/appointmentTable' 
 import UpcomingAppointments from './components/upcomingAppt' 
-
+import DoctorSidebarModal from './components/sidebar'
 import {
   barChartDataDailyTraffic,
   barChartOptionsDailyTraffic,
@@ -50,13 +50,14 @@ const Dashboard = () => {
   
   return (
     <div className={classes.root}>
-      
       <Grid item xs container spacing={3}>
         <Grid xs={6} sm={6} md={12}>
 
-          <Cards name1="Total Patient" name2="Todat Visit" name3="Earnings" name4="Total Visits" value="108/120" />
+          <Cards name1="Total Patient" name2="Today Visit" name3="Earnings" name4="Total Visits" value="108/120" />
         <br/>
         </Grid>
+   
+
         <Grid item xs={6} sm={6} md={4}>
           <Paper className={classes.paper}>
 

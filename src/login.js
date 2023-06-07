@@ -1,4 +1,6 @@
 import React , {useState}from 'react';
+import axios from 'axios';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,24 +23,35 @@ import { useNavigate} from 'react-router-dom';
 const theme = createTheme();
 
 export default function Login({setIsLoggedIn}) {
-    const [username, setUsername] = useState("");
+    const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
   const Navigate =useNavigate();
-    const handleLogin = (e) => {
-      localStorage.setItem("login", false)
+    // const handleLogin = (e) => {
+    //   //localStorage.setItem("login", false)
+    //   e.preventDefault();
+    //   // TODO: Implement your login logic here
+    //  // setIsLoggedIn(true);
+    //  // Navigate('/addpt')
+    // };
+    const handleLogin = async (e) => {
+      alert();
       e.preventDefault();
-      // TODO: Implement your login logic here
-     // setIsLoggedIn(true);
-     // Navigate('/addpt')
+  
+      try {
+        const response = await axios.post('https://clinic-cz9h.onrender.com/doctors/login', { email, password });
+       console.log(response)
+
+        const token = response.data.token;
+        
+        // Perform actions upon successful login, such as saving the token to localStorage or redirecting to the dashboard
+        // For example:
+        localStorage.setItem('token', token);
+        window.location.href = '/dashboard';
+      } catch (error) {
+        // Handle login error, display an error message, etc.
+        console.log(error);
+      }
     };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,7 +85,7 @@ export default function Login({setIsLoggedIn}) {
               <LockOutlinedIcon />
             </Avatar> */}
             <img src={logo} style   ={{height:'50px', width:'100px'}}/>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
