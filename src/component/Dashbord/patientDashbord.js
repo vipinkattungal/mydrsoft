@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import Calendar from "./Calender";
 import LineChart from "./components/LineChart";
-import PatientTable from "./components/PatientTable";
+import PatientTable from "./components/PatientTable"; 
 import Note from "./components/Note";
 import PieChart from "./components/PieChart"
 import Cards from "./card"
@@ -15,7 +15,10 @@ import {
 import PatientVitals from './components/vitalsCard'
 import Barchart from './components/gaugeChart'
 import PatientAppointmentsTable from './components/appointmentTable'
-import PatientVisitHistoryTable from './components/patientVisitedHistory'
+import PatientHistoryTable from './components/patientHistory'
+import ClinicApp from './components/bodyTag'
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -51,7 +54,7 @@ const PatientDashboard = () => {
         <Grid item xs={6} md={3}>
           <Paper className={classes.paper}>
 
-            <img src={humanbodyfrontal} style={{ height: '80%', width: '100%' }}></img>
+            <ClinicApp/>
           </Paper>
         </Grid>
         <Grid item xs={6} md={9}>
@@ -72,7 +75,7 @@ const PatientDashboard = () => {
         <Grid item xs={6} md={6} lg={4}>
           <Paper className={classes.paper}>
             <h6>History</h6>
-            <PatientVisitHistoryTable />
+            <PatientHistoryTable />
           </Paper>
         </Grid>
         <Grid item xs={6} md={12} lg={4}>
