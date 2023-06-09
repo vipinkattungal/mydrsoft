@@ -6,6 +6,7 @@ import { Stage, Layer, Image, Rect, Text } from 'react-konva';
 import { useDropzone } from 'react-dropzone';
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
