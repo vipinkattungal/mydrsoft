@@ -9,6 +9,7 @@ import {
   Box,
   Paper,
 } from "@mui/material";
+import { Typography } from '@mui/material';
 
 const AddPatientForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -32,6 +33,10 @@ const AddPatientForm = () => {
   };
 
   return (
+    <>
+    <Typography variant="h4" align="center">
+        Add Patient
+      </Typography>
     <Box
     
       sx={{
@@ -44,7 +49,8 @@ const AddPatientForm = () => {
         
       }}
     >
-      <Paper  sx={{ p: 4, borderRadius: 3, boxShadow: 8, width: "100%" }}>
+      
+          <Paper  sx={{ p: 4, borderRadius: 3, boxShadow: 8, width: "100%" }}>
         <form onSubmit={handleSubmit}>
           <Box sx={{ display: "flex", gap: 2, mt:2  }}>
             <TextField
@@ -116,6 +122,7 @@ const AddPatientForm = () => {
         </form>
       </Paper>
     </Box>
+    </>
   );
 };
 

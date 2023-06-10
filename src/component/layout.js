@@ -234,7 +234,7 @@ const shadow = useColorModeValue(
 
         <List>
           
-              <Link to="/" onClick={handleClick}>
+              <Link to="/Dashboard" onClick={handleClick}>
                 <ListItem button  key="Dashbord1">
                   <ListItemIcon>
                     <InboxIcon />
