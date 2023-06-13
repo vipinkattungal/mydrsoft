@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Typography } from '@mui/material';
 import axios from "axios"
-import {useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie'
 
 const AddPatientForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -23,13 +23,13 @@ const AddPatientForm = () => {
   const [cookie] = useCookies(['jwt']);
 
   const handleSubmit = async (e) => {
-    console.log(e,"items");
+    console.log(e, "items");
     try {
-      const  headers  = {
+      const headers = {
         'Content-Type': 'application/json',
         'Authorization': `${cookie.jwt}`,
         // Add any other custom headers as needed
-      };     
+      };
       const generateUniqueId = () => {
         const timestamp = Date.now();
         const random = Math.floor(Math.random() * 10000); // Generate a random number between 0 and 9999
@@ -37,52 +37,54 @@ const AddPatientForm = () => {
         const uniqueId = `${formattedRandom}`;
         return uniqueId;
       };
-      
+
       // Example usage
       const uniqueId = generateUniqueId();
       console.log(uniqueId);
-      
-       const response = await axios.post('https://clinic-cz9h.onrender.com/patients/addpatient', { "patientId":uniqueId,
-       "patientName":firstName,
-       "email":"test@gmail.com",
-       "mobileNumber":phoneNumber,
-       "age":age,
-       "gender":gender,
-       "address":reasonForVisit,
-       "pinCode":"660044"},{ headers });
+
+      const response = await axios.post('https://clinic-cz9h.onrender.com/patients/addpatient', {
+        "patientId": uniqueId,
+        "patientName": firstName,
+        "email": "test@gmail.com",
+        "mobileNumber": phoneNumber,
+        "age": age,
+        "gender": gender,
+        "address": reasonForVisit,
+        "pinCode": "660044"
+      }, { headers });
 
       const res = response.data;
       // console.log(res.status)
-    if(res.status ==='success')
-     window.location.href = '/patientDetails';
+      if (res.status === 'success')
+        window.location.href = '/patientDetails';
     } catch (error) {
       console.log(error);
     }
-    
-   
-    
+
+
+
   };
 
   return (
     <>
-    <Typography variant="h4" align="center">
+      <Typography variant="h4" align="center">
         Add Patient
       </Typography>
-    <Box
-    
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "cebter",
-        justifyContent: "center",
-        height: "85vh",
-        
-        
-      }}
-    >
-      
-          <Paper  sx={{ p: 4, borderRadius: 3, boxShadow: 8, width: "100%" }}>
-          <Box sx={{ display: "flex", gap: 2, mt:2  }}>
+      <Box
+
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "cebter",
+          justifyContent: "center",
+          height: "85vh",
+
+
+        }}
+      >
+
+        <Paper sx={{ p: 4, borderRadius: 3, boxShadow: 8, width: "100%" }}>
+          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
             <TextField
               required
               label="First Name"
@@ -144,13 +146,13 @@ const AddPatientForm = () => {
             value={reasonForVisit}
             onChange={(e) => setReasonForVisit(e.target.value)}
           />
-          <Box sx={{ display: "flex", justifyContent: "center", mt:4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
               Add Patient
             </Button>
           </Box>
-      </Paper>
-    </Box>
+        </Paper>
+      </Box>
     </>
   );
 };
