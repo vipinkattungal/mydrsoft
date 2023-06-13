@@ -17,7 +17,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import displayImage from './loginImage.jpg'
 import logo from './logo1.png'
 import { useNavigate} from 'react-router-dom';
-
+// import {Cookies} from 'js-cookie';
+import {useCookies} from 'react-cookie'
 
 
 const theme = createTheme();
@@ -25,6 +26,8 @@ const theme = createTheme();
 export default function Login({setIsLoggedIn}) {
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [cookie, setCookie] = useCookies(['jwt']);
+
   const Navigate =useNavigate();
    
     const handleLogin = async (e) => {
@@ -32,15 +35,17 @@ export default function Login({setIsLoggedIn}) {
       e.preventDefault();
   
       try {
-        const response = await axios.post('https://clinic-cz9h.onrender.com/doctors/login', { email, password });
-       console.log(response)
-
-        const token = response.data.token;
+        const headers = {
+          'Content-Type': 'application/json',
+         // 'Authorization': 'Bearer your_token_here',
+          // Add any other custom headers as needed
+        };
         
-        // Perform actions upon successful login, such as saving the token to localStorage or redirecting to the dashboard
-        // For example:
-        localStorage.setItem('token', token);
-        window.location.href = '/dashboard';
+        const response = await axios.post('https://clinic-cz9h.onrender.com/doctors/login', { email, password },{headers});
+       console.log(response.data)
+      setCookie('jwt',response.data.token)
+      
+      //  window.location.href = '/dashboard';
       } catch (error) {
         // Handle login error, display an error message, etc.
         console.log(error);

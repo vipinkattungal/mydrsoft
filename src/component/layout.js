@@ -14,6 +14,7 @@ import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { BrowserRouter as Router, Routes, Route, Redirect, Link } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
 import Rt from './rt';
+import ProfileDropdown from './Dashbord/logout'
 import {
 	Avatar,
 	Button,
@@ -201,6 +202,7 @@ const shadow = useColorModeValue(
 					me={{ base: '30px', md: 'unset' }}
 					minW={{ base: 'unset', md: '400px', xl: '450px' }}
 					maxW={{ base: '360px', md: 'unset' }}>
+            <ProfileDropdown/>
 					<Flex jusitfy="space-between" w="100%" mb="20px">
 						<Text fontSize="md" fontWeight="600" color={textColor}>
 							Notifications
@@ -261,7 +263,7 @@ const shadow = useColorModeValue(
               <Link to="/patientDetails" onClick={handleClick}>
                 <ListItem button key="patientDetails">
                   <ListItemIcon>
-                    <MailIcon />
+                    <InboxIcon />
                   </ListItemIcon>
                   <ListItemText primary="Patient Details" />
                 </ListItem>
@@ -277,7 +279,7 @@ const shadow = useColorModeValue(
               <Link to="/appointment" onClick={handleClick}>
                 <ListItem button key="appointment">
                   <ListItemIcon>
-                    <MailIcon />
+                    <InboxIcon />
                   </ListItemIcon>
                   <ListItemText primary="appointment" />
                 </ListItem>
