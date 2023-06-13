@@ -26,6 +26,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import GlobalSearchBar from './searchBar'
+import axios from "axios"
+import { useCookies } from 'react-cookie'
+
 function createData(name, calories, fat, carbs, protein) {
   return {
     name,
@@ -304,7 +307,7 @@ export default function EnhancedTable() {
   const [visibleRows, setVisibleRows] = React.useState(null);
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
-
+  const [cookie] = useCookies(['jwt']);
   React.useEffect(() => {
     let rowsOnMount = stableSort(
       rows,
@@ -318,6 +321,20 @@ export default function EnhancedTable() {
 
     setVisibleRows(rowsOnMount);
   }, []);
+  React.useEffect(()=>{
+    try {
+      const headers = {
+        Authorization: `${cookie.jwt}`,
+        'Content-Type': 'application/json',
+        // Add other headers as needed
+      };
+  
+      const response =  axios.get('https://clinic-cz9h.onrender.com/patients', { headers });
+      console.log(response.data); // Process the response data
+    } catch (error) {
+      console.log(error); // Handle the error
+    }
+  },[])
 
   const handleRequestSort = React.useCallback(
     (event, newOrderBy) => {

@@ -45,7 +45,7 @@ export default function Login({setIsLoggedIn}) {
        console.log(response.data)
       setCookie('jwt',response.data.token)
       
-      //  window.location.href = '/dashboard';
+       window.location.href = '/dashboard';
       } catch (error) {
         // Handle login error, display an error message, etc.
         console.log(error);

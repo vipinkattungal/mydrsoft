@@ -11,11 +11,14 @@ import {
   Typography,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from "axios"
+import { useCookies } from 'react-cookie';
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef(null);
   //const history = useHistory();
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -29,12 +32,21 @@ const ProfileDropdown = () => {
     setOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async()  => {
     // Perform logout logic here
     // ...
+    try {
+      // Make the API request using axios
+      const response = await axios.post('https://clinic-cz9h.onrender.com/doctors/logout');
+      console.log(response.data);
+      removeCookie('jwt');
+          window.location.href = '/';
 
+        } catch (error) {
+      console.log(error);
+      // Handle the error as needed
+    }
     // Redirect to the home page
-    window.location.href('/');
   };
 
   return (
