@@ -16,7 +16,14 @@ import InvoiceGenerator from'./Dashbord/components/invoice'
 import Login from '../login'
 import PatientSatisfactionForm from './Dashbord/components/patientSatisfactionForm';
 import AddPatientVitals from './Dashbord/components/patientVitalsForm'
+import LabTestReportModal from './Dashbord/components/labReportFinalMoal'
+import UpdateUIComponent from'./Dashbord/components/websiteSetup'
 export default function Rt() {
+    const initialTestInputs = [
+        { test: 'Test 1', value: '' },
+        { test: 'Test 2', value: '' },
+        { test: 'Test 3', value: '' },
+      ];
     return (
         <Router >
             <Routes>
@@ -26,12 +33,14 @@ export default function Rt() {
                 <Route  path="/Timeline" element={<VerticalTimeline />} />
                 <Route  path="/" element={<Login />} />
                 <Route  path="/dashboard" element={<Dashboard />} />
+                <Route  path="/patientLabReport" element={<LabTestReportModal initialTestInputs={initialTestInputs} />} />
 
                 <Route  path="/patientDashbord" element={<PatientDashboard />} />
                 <Route  path="/appointment" element={<AppointmentTable />} />
                 <Route  path="/invoice" element={<InvoiceGenerator />} />
                 <Route  path="/patientSatisfactionForm" element={<PatientSatisfactionForm />} />
                 <Route  path="/patientVitalsForm" element={<AddPatientVitals />} />
+                <Route  path="/websitesetup" element={<UpdateUIComponent />} />
 
             </Routes>
         </Router>

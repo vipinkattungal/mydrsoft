@@ -4,7 +4,7 @@ import { Button, FormControl, InputLabel, Input, Paper, Typography } from '@mate
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
-
+import LabTestModal from './Dashbord/components/patientLabDetails'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -44,6 +44,14 @@ const useStyles = makeStyles((theme) => ({
     color: '#ffffff',
     '&:hover': {
       backgroundColor: theme.palette.primary.dark,
+    },
+    buttonmodal: {
+      position: 'relative',
+    },
+    modalContent: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
     },
   },
 }));
@@ -128,6 +136,11 @@ const AddDoctorPrescription = () => {
           style={{ display: 'none' }}
           onChange={handleFileInput}
         />
+      </div>
+      <br></br>
+      <div className="ml-5">
+      < LabTestModal />
+
       </div>
       <Button
         variant="contained"
