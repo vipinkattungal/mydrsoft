@@ -39,21 +39,21 @@ function createData(name, calories, fat, carbs, protein) {
   };
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
+// const rows = [
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Donut', 452, 25.0, 51, 4.9),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+//   createData('Honeycomb', 408, 3.2, 87, 6.5),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Jelly Bean', 375, 0.0, 94, 0.0),
+//   createData('KitKat', 518, 26.0, 65, 7.0),
+//   createData('Lollipop', 392, 0.2, 98, 0.0),
+//   createData('Marshmallow', 318, 0, 81, 2.0),
+//   createData('Nougat', 360, 19.0, 9, 37.0),
+//   createData('Oreo', 437, 18.0, 63, 4.0),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -89,31 +89,31 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: 'patientName',
     numeric: false,
     disablePadding: true,
     label: 'Name',
   },
   {
-    id: 'calories',
+    id: 'mobileNumber',
     numeric: true,
     disablePadding: false,
     label: 'Mobile Number',
   },
   {
-    id: 'fat',
+    id: 'age',
     numeric: true,
     disablePadding: false,
     label: 'Age',
   },
   {
-    id: 'carbs',
+    id: 'address',
     numeric: true,
     disablePadding: false,
     label: 'Place',
   },
   {
-    id: 'protein',
+    id: 'createdAt',
     numeric: true,
     disablePadding: false,
     label: 'Last Visit',
@@ -308,6 +308,32 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
   const [cookie] = useCookies(['jwt']);
+  const [cookies] = useCookies(['userPaylod']);
+  const [rows, setRows] = React.useState(localStorage.getItem("res")!=='undefined'? JSON.parse(localStorage.getItem("res")):[])
+  React.useEffect(() => {
+    const fetchData = async () => {
+      //console.log(cookies.userPayload);
+      try {
+        const headers = {
+          Authorization: `${cookie.jwt}`,
+          userPayload: `${cookies.userPaylod}`,
+          'Content-Type': 'application/json',
+          // Add other headers as needed
+        };
+  
+        const response = await axios.get('https://clinic-cz9h.onrender.com/patients', { headers });
+        console.log(response.data.patients); // Process the response data
+        localStorage.setItem("res",JSON.stringify(response.data.patients));
+//setRows(localStorage.getItem("res"))
+      } catch (error) {
+        console.log(error); // Handle the error
+      }
+      console.log(rows,"first"); // Process the response data
+
+    };
+  
+    fetchData();
+  }, [localStorage.getItem("res")]);
   React.useEffect(() => {
     let rowsOnMount = stableSort(
       rows,
@@ -318,13 +344,16 @@ export default function EnhancedTable() {
       0 * DEFAULT_ROWS_PER_PAGE,
       0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
     );
-
+    console.log(rows,"rows");
+console.log(rowsOnMount,"kgjhhjghj")  
     setVisibleRows(rowsOnMount);
   }, []);
   React.useEffect(()=>{
+    console.log(cookie.userPayload);
     try {
       const headers = {
         Authorization: `${cookie.jwt}`,
+        userPayload:`${cookies.userPaylod}`,
         'Content-Type': 'application/json',
         // Add other headers as needed
       };
@@ -453,6 +482,7 @@ export default function EnhancedTable() {
               color={'red'}
             />
             <TableBody>
+            {console.log(visibleRows,"gdgd")}
               {visibleRows
                 ? visibleRows.map((row, index) => {
                     const isItemSelected = isSelected(row.name);
@@ -484,12 +514,12 @@ export default function EnhancedTable() {
                           scope="row"
                           padding="none"
                         >
-                          {row.name}
+                          {row.patientName}
                         </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
+                        <TableCell align="right">{row.mobileNumber}</TableCell>
+                        <TableCell align="right">{row.age}</TableCell>
+                        <TableCell align="right">{row.address}</TableCell>
+                        <TableCell align="right">{row.createdAt}</TableCell>
                         <TableCell align="right">Fever</TableCell>
                         <TableCell align="right">2</TableCell>
                         <TableCell align="right"><ModeIcon/></TableCell>

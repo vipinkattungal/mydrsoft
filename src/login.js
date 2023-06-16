@@ -31,7 +31,6 @@ export default function Login({setIsLoggedIn}) {
   const Navigate =useNavigate();
    
     const handleLogin = async (e) => {
-      alert();
       e.preventDefault();
   
       try {
@@ -42,10 +41,10 @@ export default function Login({setIsLoggedIn}) {
         };
         
         const response = await axios.post('https://clinic-cz9h.onrender.com/doctors/login', { email, password },{headers});
-       console.log(response.data)
+       console.log(response.data.userPayload)
       setCookie('jwt',response.data.token)
-      
-       window.location.href = '/dashboard';
+      setCookie('userPaylod',(JSON.stringify(response.data.userPayload)))
+      // window.location.href = '/dashboard';
       } catch (error) {
         // Handle login error, display an error message, etc.
         console.log(error);

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl, InputLabel, Input, Paper, Typography } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import axios from 'axios';
+import {useCookies} from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
 const AddDoctorPrescription = () => {
   const classes = useStyles();
   const [selectedFile, setSelectedFile] = useState(null);
+  const [description, setDescription] = useState('');
+  const [cookie] = useCookies(['jwt']);
 
   const handleFileInput = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -64,18 +67,49 @@ const AddDoctorPrescription = () => {
     event.preventDefault();
   };
 
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+    formData.append('patientId', '082');
+
+    formData.append('description', description);
+    formData.append('disease', 'test');
+    formData.append('numberOfVisit', '1');
+
+    formData.append('nextConsultationDate', null);
+
+    try {
+      const response = await axios.post('https://clinic-cz9h.onrender.com/patients/addconsultation', formData, {
+        headers: {
+         'Content-Type': 'multipart/form-data',
+         'Authorization': `${cookie.jwt}`,
+        },
+      });
+
+      console.log(response.data);
+      // Do something with the response
+    } catch (error) {
+      console.error(error);
+      // Handle the error
+    }
+  };
+
   return (
     <Paper className={classes.root}>
       <Typography variant="h5" component="h3" className={classes.heading}>
-       Prescription
+        Prescription
       </Typography>
-      {/* <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="prescriptionName">Prescription Name</InputLabel>
-        <Input id="prescriptionName" />
-      </FormControl> */}
       <FormControl margin="normal" fullWidth>
         <InputLabel htmlFor="description">Please Enter Prescription</InputLabel>
-        <Input id="description" multiline rows={8} />
+        <Input
+          id="description"
+          multiline
+          rows={8}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </FormControl>
       <div
         className={classes.uploadBox}
@@ -99,9 +133,9 @@ const AddDoctorPrescription = () => {
         variant="contained"
         className={classes.button}
         startIcon={<CloudUploadIcon />}
-        disabled={!selectedFile}
+        onClick={handleSubmit}
       >
-        Upload
+        Submit
       </Button>
     </Paper>
   );
