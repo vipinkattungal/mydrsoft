@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Typography, Card, CardContent } from '@mui/material';
-import axios from "axios"
+import axios from 'axios';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -12,20 +13,49 @@ const useStyles = makeStyles((theme) => ({
   },
   searchSection: {
     marginBottom: '24px',
-    width: '1000px', // Increase the width of the search bar
+    width: '600px', // Adjust the width of the search bar
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  searchResponse: {
-    fontStyle: 'italic', // Apply italic style to search response
-    fontWeight: 'bold', // Apply bold style to search response
+  searchField: {
+    width: '100%',
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '24px',
+    },
   },
-  newsSection: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gridGap: '24px',
+  searchResult: {
+    marginTop: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  newsSeparator: {
-    borderTop: `1px solid ${theme.palette.grey[300]}`, // Add separator line
-    margin: '24px 0',
+  resultCard: {
+    width: '100%',
+    marginBottom: '16px',
+    border: '2px solid #e0e0e0',
+    borderRadius: '8px',
+    backgroundColor: '#f5f5f5',
+    transition: 'background-color 0.3s',
+  },
+  resultCardContent: {
+    '&:hover': {
+      backgroundColor: '#e0e0e0',
+    },
+  },
+  resultName: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.main,
+  },
+  resultDescription: {
+    marginTop: '8px',
+    color: theme.palette.text.secondary,
+  },
+  noResult: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: theme.palette.error.main,
   },
 }));
 
@@ -34,50 +64,74 @@ function DoctorResearchPage() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [newsData, setNewsData] = useState([]);
+  const [error, setError] = useState('');
 
   // Fetch search results from API
   useEffect(() => {
-    fetch(`https://api.fda.gov/drug/label.json?search=${searchValue}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const results = data.results.map((result) => ({
+    if (searchValue.trim() === '') {
+      setSearchResult([]);
+      return;
+    }
+
+    axios
+      .get(`https://api.fda.gov/drug/label.json?search=${searchValue}`)
+      .then((response) => {
+        const results = response.data.results.map((result) => ({
           id: result.id,
-          name: result.openfda.brand_name[0],
-          description: result.description,
+          name: result.openfda?.brand_name?.[0] || 'N/A',
+          description: result.description || 'N/A',
+          indications: result.indications_and_usage || 'N/A',
+          contraindications: result.contraindications || 'N/A',
+          warnings: result.warnings || 'N/A',
         }));
         setSearchResult(results);
+        setError('');
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError('An error occurred while fetching the medicine data.');
+      });
   }, [searchValue]);
 
   // Fetch medical news from API
   useEffect(() => {
-    fetchMedicalNews();
+    fetchIndianMedicalNews();
   }, []);
 
-  const fetchMedicalNews = async () => {
+  const fetchIndianMedicalNews = async () => {
     try {
       const response = await axios.get(
-        'https://medlineplus.gov/api/news/news?max=5'
+        'https://newsapi.org/v2/top-headlines',
+        {
+          params: {
+            country: 'in',
+            category: 'health',
+            apiKey: 'e2bbfbe40ba24a378f451469da87af53',
+          },
+        }
       );
-      const data = response.data;
-      console.log(data,"data");
-      const articles = data.feed.entry.map((entry) => ({
-        id: entry.id,
-        title: entry.title,
-        summary: entry.summary,
-        datePublished: entry.updated,
+      const articles = response.data.articles.map((article) => ({
+        id: article.source.id,
+        title: article.title,
+        description: article.description,
+        url: article.url,
       }));
       setNewsData(articles);
     } catch (error) {
       console.error(error);
     }
   };
+  
+  
 
   return (
     <div className={classes.container}>
-              <Typography variant="h5" gutterBottom>
-         <u><strong><i>Research</i></strong> </u> 
+      <Typography variant="h5" gutterBottom  style={{borderBottom: '2px solid black'}}>
+        <strong>Research And Updates</strong>
+      </Typography>
+      <br/>
+      <Typography variant="h6" gutterBottom style={{ color: 'blue' }} >
+          <u><strong><i>Search Medicine</i></strong></u>
         </Typography>
       <section className={classes.searchSection}>
         <TextField
@@ -85,32 +139,57 @@ function DoctorResearchPage() {
           variant="outlined"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
+          className={classes.searchField}
         />
-        <div>
-          {searchResult.map((result) => (
-            <Typography
-              key={result.id}
-              variant="body1"
-              className={classes.searchResponse}
-            >
-              {result.name} - {result.description}
+        <div className={classes.searchResult}>
+          {searchResult.length === 0 && !error && (
+            <Typography variant="body1" className={classes.noResult}>
+              Result not found.
             </Typography>
+          )}
+          {searchResult.map((result) => (
+            <Card key={result.id} className={classes.resultCard}>
+              <CardContent className={classes.resultCardContent}>
+                <Typography variant="subtitle1" className={classes.resultName}>
+                  {result.name}
+                </Typography>
+                <Typography variant="body2" className={classes.resultDescription}>
+                  Description: {result.description}
+                </Typography>
+                <Typography variant="body2" className={classes.resultDescription}>
+                  Indications: {result.indications}
+                </Typography>
+                <Typography variant="body2" className={classes.resultDescription}>
+                  Contraindications: {result.contraindications}
+                </Typography>
+                <Typography variant="body2" className={classes.resultDescription}>
+                  Warnings: {result.warnings}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </div>
+        {error && <Typography variant="body1" color="error">{error}</Typography>}
       </section>
       <section>
-        <Typography variant="h5" gutterBottom>
-         <u><strong><i>Medical News and Updates</i></strong> </u> 
+      <Typography variant="h6" gutterBottom style={{ color: 'blue' }}>
+          <u><strong><i>Medical News and Updates</i></strong></u>
         </Typography>
         <div className={classes.newsSection}>
           {newsData.map((news) => (
-           <Card key={news.id}>
-           <CardContent>
-             <Typography variant="subtitle1">{news.title}</Typography>
-             <Typography variant="body2">{news.summary}</Typography>
-             <Typography variant="caption">{news.datePublished}</Typography>
-           </CardContent>
-         </Card>
+            <Card key={news.id} className={classes.newsCard}>
+              <CardContent className={classes.newsCardContent}>
+                <Typography variant="subtitle1"><strong>{news.title}</strong></Typography>
+                <Typography variant="body2">{news.description}</Typography>
+              </CardContent>
+              <CardContent>
+                <Typography variant="caption">
+                  <a href={news.url} target="_blank" rel="noopener noreferrer">
+                    Read More
+                  </a>
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
