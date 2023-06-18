@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { BrowserRouter as Router, Routes, Route, Redirect, Link } from 'react-router-dom';
 import { alpha } from '@material-ui/core/styles';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Rt from './rt';
 import ProfileDropdown from './Dashbord/logout'
 import {
@@ -36,18 +37,25 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import FolderSharedIcon from '@mui/icons-material/FolderShared';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import Addpt from './addPatient';
 import EnhancedTable from './viewPatient'
 import { useLocation } from 'react-router-dom';
-
+import PreviewIcon from '@mui/icons-material/Preview';
 import Form from './patientDetailsForm'
 import VerticalTimeline from './TimeLine'
+import ViewCompactAltIcon from '@mui/icons-material/ViewCompactAlt';
 import logo from '../image/logo1.png'
 import Chart from './dashbord';
 // import DashboardCard from '../component/dsbrd'
 import AddPatientForm from './addPtnew'
 import Dashboard from './Dashbord/index'
 import PatientDashboard from './Dashbord/patientDashbord'
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import AppSettingsAltIcon from '@mui/icons-material/AppSettingsAlt';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -190,7 +198,7 @@ export default function MiniDrawer() {
           <Box ml="90%">
             <Menu >
               <MenuButton p="0px" >
-                <Icon mt="6px" as={MdNotificationsNone} color="#2c387e" w="18px" h="18px" me="10px" />
+<AccountBoxIcon/>
               </MenuButton>
               <MenuList
                 boxShadow={shadow}
@@ -247,7 +255,7 @@ export default function MiniDrawer() {
             <Link to="/addpt" onClick={() => handleClick("addPt")}>
               <ListItem button key="addpt">
                 <ListItemIcon>
-                  <MailIcon />
+                  <AddToQueueIcon />
                 </ListItemIcon>
                 <ListItemText primary="Add patient" />
               </ListItem>
@@ -255,7 +263,7 @@ export default function MiniDrawer() {
             <Link to="/viewpt" onClick={() => handleClick("viewPt")}>
               <ListItem button key="viewpt">
                 <ListItemIcon>
-                  <MailIcon />
+                  <PreviewIcon />
                 </ListItemIcon>
                 <ListItemText primary="View Patient" />
               </ListItem>
@@ -263,7 +271,7 @@ export default function MiniDrawer() {
             <Link to="/patientDetails" onClick={handleClick}>
               <ListItem button key="patientDetails">
                 <ListItemIcon>
-                  <InboxIcon />
+                  <FolderSharedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Patient Details" />
               </ListItem>
@@ -271,7 +279,7 @@ export default function MiniDrawer() {
             <Link to="/patientDashbord" onClick={handleClick}>
               <ListItem button key="patientDashbord">
                 <ListItemIcon>
-                  <MailIcon />
+                  <ViewCompactAltIcon />
                 </ListItemIcon>
                 <ListItemText primary="patientDashbord" />
               </ListItem>
@@ -279,7 +287,7 @@ export default function MiniDrawer() {
             <Link to="/appointment" onClick={handleClick}>
               <ListItem button key="appointment">
                 <ListItemIcon>
-                  <InboxIcon />
+                  <BookOnlineIcon />
                 </ListItemIcon>
                 <ListItemText primary="appointment" />
               </ListItem>
@@ -287,7 +295,7 @@ export default function MiniDrawer() {
             <Link to="/invoice" onClick={handleClick}>
               <ListItem button key="invoice">
                 <ListItemIcon>
-                  <MailIcon />
+                  <ReceiptIcon />
                 </ListItemIcon>
                 <ListItemText primary="invoice" />
               </ListItem>
@@ -295,7 +303,7 @@ export default function MiniDrawer() {
             <Link to="/websitesetup" onClick={handleClick}>
               <ListItem button key="websitesetup">
                 <ListItemIcon>
-                  <MailIcon />
+                  <AppSettingsAltIcon />
                 </ListItemIcon>
                 <ListItemText primary="website Setup" />
               </ListItem>
@@ -321,7 +329,7 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <SettingsSuggestIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
