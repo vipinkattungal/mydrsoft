@@ -18,6 +18,7 @@ import PatientSatisfactionForm from './Dashbord/components/patientSatisfactionFo
 import AddPatientVitals from './Dashbord/components/patientVitalsForm'
 import LabTestReportModal from './Dashbord/components/labReportFinalMoal'
 import UpdateUIComponent from'./Dashbord/components/websiteSetup'
+import DoctorResearchPage from './Dashbord/components/doctorResearch'
 export default function Rt() {
     const initialTestInputs = [
         { test: 'Test 1', value: '' },
@@ -41,6 +42,8 @@ export default function Rt() {
                 <Route  path="/patientSatisfactionForm" element={<PatientSatisfactionForm />} />
                 <Route  path="/patientVitalsForm" element={<AddPatientVitals />} />
                 <Route  path="/websitesetup" element={<UpdateUIComponent />} />
+                <Route  path="/Research" element={<DoctorResearchPage />} />
+
 
             </Routes>
         </Router>

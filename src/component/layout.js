@@ -56,6 +56,7 @@ import PatientDashboard from './Dashbord/patientDashbord'
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import AppSettingsAltIcon from '@mui/icons-material/AppSettingsAlt';
+import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -198,7 +199,7 @@ export default function MiniDrawer() {
           <Box ml="90%">
             <Menu >
               <MenuButton p="0px" >
-<AccountBoxIcon/>
+              <AccountBoxIcon/>
               </MenuButton>
               <MenuList
                 boxShadow={shadow}
@@ -281,7 +282,7 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <ViewCompactAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="patientDashbord" />
+                <ListItemText primary="PatientDashbord" />
               </ListItem>
             </Link>
             <Link to="/appointment" onClick={handleClick}>
@@ -289,7 +290,7 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <BookOnlineIcon />
                 </ListItemIcon>
-                <ListItemText primary="appointment" />
+                <ListItemText primary="Appointment" />
               </ListItem>
             </Link>
             <Link to="/invoice" onClick={handleClick}>
@@ -297,7 +298,7 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>
-                <ListItemText primary="invoice" />
+                <ListItemText primary="Billing" />
               </ListItem>
             </Link>
             <Link to="/websitesetup" onClick={handleClick}>
@@ -305,7 +306,15 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <AppSettingsAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="website Setup" />
+                <ListItemText primary="Website Setup" />
+              </ListItem>
+            </Link>
+            <Link to="/Research" onClick={handleClick}>
+              <ListItem button key="Research">
+                <ListItemIcon>
+                  <ScreenSearchDesktopIcon />
+                </ListItemIcon>
+                <ListItemText primary="Research" />
               </ListItem>
             </Link>
           </List>
