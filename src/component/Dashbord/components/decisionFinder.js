@@ -14,6 +14,7 @@ const EndlessMedicalComponent = () => {
     setQuery(e.target.value);
   };
 
+  
   const handleButtonClick = async () => {
     try {
       setLoading(true);
