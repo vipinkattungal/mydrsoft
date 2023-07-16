@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Typography, Card, CardContent } from '@mui/material';
 import axios from 'axios';
-
+import SearchBar from'./medicineSearch'
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -126,55 +126,13 @@ function DoctorResearchPage() {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h5" gutterBottom  style={{borderBottom: '2px solid black'}}>
-        <strong>Research And Updates</strong>
-      </Typography>
-      <br/>
-      <Typography variant="h6" gutterBottom style={{ color: 'blue' }} >
-          <u><strong><i>Search Medicine</i></strong></u>
-        </Typography>
-      <section className={classes.searchSection}>
-        <TextField
-          label="Search Medicine"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className={classes.searchField}
-        />
-        <div className={classes.searchResult}>
-          {searchResult.length === 0 && !error && (
-            <Typography variant="body1" className={classes.noResult}>
-              Result not found.
-            </Typography>
-          )}
-          {searchResult.map((result) => (
-            <Card key={result.id} className={classes.resultCard}>
-              <CardContent className={classes.resultCardContent}>
-                <Typography variant="subtitle1" className={classes.resultName}>
-                  {result.name}
-                </Typography>
-                <Typography variant="body2" className={classes.resultDescription}>
-                  Description: {result.description}
-                </Typography>
-                <Typography variant="body2" className={classes.resultDescription}>
-                  Indications: {result.indications}
-                </Typography>
-                <Typography variant="body2" className={classes.resultDescription}>
-                  Contraindications: {result.contraindications}
-                </Typography>
-                <Typography variant="body2" className={classes.resultDescription}>
-                  Warnings: {result.warnings}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        {error && <Typography variant="body1" color="error">{error}</Typography>}
-      </section>
+    <section>
+    <div className={classes.newsSection}>
+        <h6><b>MEDICAL LATEST NEWS UPDATES</b></h6>
+      </div>
+    </section> 
       <section>
-      <Typography variant="h6" gutterBottom style={{ color: 'blue' }}>
-          <u><strong><i>Medical News and Updates</i></strong></u>
-        </Typography>
+      
         <div className={classes.newsSection}>
           {newsData.map((news) => (
             <Card key={news.id} className={classes.newsCard}>

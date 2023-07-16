@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import Calendar from "./Calender";
 import LineChart from "./components/LineChart";
 import PatientTable from "./components/PatientTable";
 import Note from "./components/Note";
 import PieChart from "./components/PieChart"
 import Cards from "./card"
+import AddToDriveRoundedIcon from '@mui/icons-material/AddToDriveRounded';
+import AssistantRoundedIcon from '@mui/icons-material/AssistantRounded';
+import AddToPhotosSharpIcon from '@mui/icons-material/AssistantRounded';
+import AddCardSharpIcon from '@mui/icons-material/AddCardSharp';
 import humanbodyfrontal from '../../image/humanbodyfrontal.jpg'
+import Stack from '@mui/material/Stack';
+import AddchartRoundedIcon from '@mui/icons-material/AddchartRounded';
+import IconButton from '@mui/material/IconButton';
+import Fingerprint from '@mui/icons-material/Fingerprint';
 import {
   barChartDataDailyTraffic,
   barChartOptionsDailyTraffic,
@@ -62,8 +70,30 @@ const PatientDashboard = () => {
             {/* <Cards  name1="BP"  name2="O2"  name3="Heart Beat"  name4="pulse" value="108/120"/> */}
             <PatientVitals />
             <PatientVitals />
+           <br/>
+           <IconButton aria-label="fingerprint" color="secondary">
 
-          </Paper>
+           <AddCardSharpIcon/> 
+           </IconButton>
+      <hr/>
+      <Stack direction="row" spacing={2}>
+      <IconButton aria-label="fingerprint" color="secondary">
+        <AddchartRoundedIcon />
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="success">
+        <Fingerprint />
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="success">
+      <AddToDriveRoundedIcon/>
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="secondary">
+        <AssistantRoundedIcon />
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="secondary">
+        <AddchartRoundedIcon />
+      </IconButton>
+    </Stack>
+       </Paper>
         </Grid>
         <Grid item xs={6} md={6} lg={4}>
           <Paper className={classes.paper}>

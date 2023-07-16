@@ -166,6 +166,10 @@ export default function MiniDrawer() {
     setOpen(false);
   };
   const handleClick = (e) => {
+    console.log(e);
+    if(e==="addPt"){
+      window.location.href('/addpt')
+    }
     setSelectedItem("viewItem")
     setShowComponent(e)
 
@@ -181,7 +185,7 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: '#2c387e', }} >
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: '#734b6d', }} >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -315,6 +319,22 @@ export default function MiniDrawer() {
                   <ScreenSearchDesktopIcon />
                 </ListItemIcon>
                 <ListItemText primary="Research" />
+              </ListItem>
+            </Link>
+            <Link to="/News" onClick={handleClick}>
+              <ListItem button key="News">
+                <ListItemIcon>
+                  <ScreenSearchDesktopIcon />
+                </ListItemIcon>
+                <ListItemText primary="News" />
+              </ListItem>
+            </Link>
+            <Link to="/Advance Seacrch" onClick={handleClick}>
+              <ListItem button key="AdvanceSeacrch">
+                <ListItemIcon>
+                  <ScreenSearchDesktopIcon />
+                </ListItemIcon>
+                <ListItemText primary="AdvanceSeacrch" />
               </ListItem>
             </Link>
           </List>

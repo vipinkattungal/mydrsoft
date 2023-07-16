@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: theme.spacing(2),
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05), 0px 1px 1px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05), 0px 1px 1px rgba(0, 0, 0, 0.5)',
     borderRadius: 10,
     '&:hover': {
       backgroundColor: '#F0F2F5'

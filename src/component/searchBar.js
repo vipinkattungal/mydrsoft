@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { useCookies } from 'react-cookie'
+import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -63,9 +65,30 @@ const useStyles = makeStyles((theme) => ({
 function GlobalSearchBar() {
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState('');
-
+  const [cookie] = useCookies(['jwt']);
+  const [cookies] = useCookies(['userPaylod']);
   const handleSearchInputChange = (event) => {
     setSearchValue(event.target.value);
+    const fetchData = async () => {
+      //console.log(cookies.userPayload);
+      try {
+        const headers = {
+          Authorization: `${cookie.jwt}`,
+          userPayload: `${cookies.userPaylod}`,
+          'Content-Type': 'application/json',
+          // Add other headers as needed
+        };
+  
+        const response = await axios.get(`https://clinic-cz9h.onrender.com/patients/456324568`, { headers });
+        console.log(response.data.patient); // Process the response data
+        localStorage.setItem("res",JSON.stringify(response.data.patient));
+      } catch (error) {
+        console.log(error); // Handle the error
+      }
+
+    };
+  
+    fetchData();
   };
 
   return (

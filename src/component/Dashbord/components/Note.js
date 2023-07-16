@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector,useDispatch} from'react-redux'
 import {
   Button,
   Modal,
@@ -11,12 +12,21 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { increment, decrement, selectCount } from '../../../app/counterSlice';
+import { addNote, deleteNote } from '../../../app/NoteReducer';
 
 const Notes = () => {
   const [open, setOpen] = useState(false);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
+  const [incrementAmount, setIncrementAmount] = useState('2');
+  const note = useSelector((state)=>state.notes.value);
+  const noteLength = useSelector((state)=>state.notes.value);
 
+const stateVrble = useSelector((state)=>state)
+localStorage.setItem("store",stateVrble)
+console.log(stateVrble);
+const dispatch =useDispatch()
   const handleOpen = () => {
     setOpen(true);
   };
@@ -25,6 +35,7 @@ const Notes = () => {
     setOpen(false);
   };
   const handleAddNote = () => {
+    dispatch(addNote({id:[(noteLength.length <= 0)? 0:noteLength.length-1]+1,notes:newNote}))
     if (newNote.trim() !== '') {
       setNotes([...notes, newNote]);
       setNewNote('');
@@ -34,9 +45,10 @@ const Notes = () => {
   
 
 
-  const handleDeleteNote = (index) => {
+  const handleDeleteNote = (id) => {
+    dispatch(deleteNote({id:id}))
     const updatedNotes = [...notes];
-    updatedNotes.splice(index, 1);
+    updatedNotes.splice(id, 1);
     setNotes(updatedNotes);
   };
 
@@ -45,6 +57,7 @@ const Notes = () => {
       <Button variant="contained" onClick={handleOpen} startIcon={<AddIcon />}>
         Add Note
       </Button>
+    
 
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -77,15 +90,16 @@ const Notes = () => {
             variant="contained"
             onClick={handleAddNote}
             sx={{ marginTop: '16px' }}
+            
           >
             Add
           </Button>
         </Box>
       </Modal>
-
-      {notes.map((note, index) => (
+{console.log(note)}
+      {note?.map((notes, id) => (
         <Paper
-          key={index}
+          key={id}
           sx={{
             padding: '16px',
             marginTop: '16px',
@@ -95,10 +109,10 @@ const Notes = () => {
           }}
         >
           <Typography variant="body1" sx={{ flex: 1 }}>
-            {note}
+            {notes.notes}
           </Typography>
           <IconButton
-            onClick={() => handleDeleteNote(index)}
+            onClick={() => handleDeleteNote(notes.id)}
             sx={{ position: 'absolute', right: '8px' }}
           >
             <DeleteIcon />

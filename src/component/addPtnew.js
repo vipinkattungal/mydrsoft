@@ -12,7 +12,8 @@ import {
 import { Typography } from '@mui/material';
 import axios from "axios"
 import { useCookies } from 'react-cookie'
-
+import patients, { addPatient } from "../app/patients";
+import { useSelector,useDispatch} from'react-redux'
 const AddPatientForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -21,9 +22,10 @@ const AddPatientForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [reasonForVisit, setReasonForVisit] = useState("");
   const [cookie] = useCookies(['jwt']);
-
+const dispatch = useDispatch()
   const handleSubmit = async (e) => {
-    console.log(e, "items");
+dispatch(addPatient({id:"0",name:"",lastname:lastName, age:age, gender, phoneNumber:phoneNumber,reasonForVisit:reasonForVisit}))
+   // console.log(e, "items");
     try {
       const headers = {
         'Content-Type': 'application/json',

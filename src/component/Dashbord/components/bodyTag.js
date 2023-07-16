@@ -114,7 +114,7 @@ const ClinicApp = () => {
             <Image
               image={imageObj}
               width={280}
-              height={600}
+              height={500}
             />
           )}
           {tags.map((tag) => (

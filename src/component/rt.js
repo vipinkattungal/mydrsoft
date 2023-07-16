@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 import Form from './patientDetailsForm'
 import VerticalTimeline from './TimeLine'
-
+import ResearchDashboard from './Dashbord/researchDashbord'
 // import EnhancedTable from '../component/viewPatient'
 import AddPatientForm from './addPtnew'
 import Dashboard from './Dashbord/index'
@@ -42,7 +42,8 @@ export default function Rt() {
                 <Route  path="/patientSatisfactionForm" element={<PatientSatisfactionForm />} />
                 <Route  path="/patientVitalsForm" element={<AddPatientVitals />} />
                 <Route  path="/websitesetup" element={<UpdateUIComponent />} />
-                <Route  path="/Research" element={<DoctorResearchPage />} />
+                <Route  path="/News" element={<DoctorResearchPage />} />
+                <Route  path="/ResearchDashboard" element={<ResearchDashboard />} />
 
 
             </Routes>
