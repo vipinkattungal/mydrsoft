@@ -27,6 +27,7 @@
     "konva": "^9.2.0",
     "material-ui-dropzone": "^3.5.0",
     "mdb-react-ui-kit": "^6.0.0",
+    "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-calendar": "^4.2.1",

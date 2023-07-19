@@ -22,6 +22,8 @@ import DoctorResearchPage from './components/doctorResearch'
 import { PagesRounded } from "@material-ui/icons";
  import BMICalculator from'./components/bmiCalculator';
 import MedicineSearch from './components/medSearch'
+import DoctorChatGPTComponent from './components/aiSearch'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -60,7 +62,7 @@ const ResearchDashboard = () => {
       <Grid item xs container spacing={3}>
         <Grid item xs={6} md={3}>
           <Paper className={classes.paper}>
-<BMICalculator/>
+            <BMICalculator/>
             {/* <ClinicApp/> */}
           </Paper>
         </Grid>
@@ -72,7 +74,7 @@ const ResearchDashboard = () => {
         
         <Grid item  xs={6} md={9}>
           <Paper className={classes.paper}>
-           <EndlessMedicalComponent/>
+           <DoctorChatGPTComponent/>
           </Paper>
         </Grid>
         <Grid item xs={6} md={12} lg={4}>
