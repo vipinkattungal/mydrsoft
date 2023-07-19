@@ -139,6 +139,7 @@ const SearchComponent = () => {
 
   return (
     <Paper className={classes.root}>
+      
       <div className={classes.filterBar}>
         
         <Typography variant="h6">Filters:</Typography>
@@ -194,7 +195,7 @@ const SearchComponent = () => {
             </Button>
             <Button variant="outlined" color="secondary" className={classes.clearButton} onClick={handleClearConversation}>
           Clear Conversation
-        </Button>
+        </Button> 
           </div>
         ))}
       </div>

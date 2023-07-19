@@ -8,6 +8,8 @@ import PatientTable from "./components/PatientTable";
 import Note from "./components/Note";
 import PieChart from "./components/PieChart"
 import Cards from "./card"
+import SymptomCheckComponent from '../symptomChecker'
+
 import humanbodyfrontal from '../../image/humanbodyfrontal.jpg'
 import {
   barChartDataDailyTraffic,
@@ -77,12 +79,10 @@ const ResearchDashboard = () => {
            <DoctorChatGPTComponent/>
           </Paper>
         </Grid>
-        <Grid item xs={6} md={12} lg={4}>
-          {/* <Paper className={classes.paper}>
-            {/* <Barchart
-              chartData={barChartDataDailyTraffic}
-              chartOptions={barChartOptionsDailyTraffic}
-            />          </Paper> */}
+        <Grid item xs={6} md={9}>
+           <Paper className={classes.paper}>
+             <SymptomCheckComponent/> 
+                      </Paper>
         </Grid> 
       </Grid>
     </div>
